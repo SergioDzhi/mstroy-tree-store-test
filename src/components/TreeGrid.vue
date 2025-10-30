@@ -51,7 +51,7 @@ const columnDefs = ref<ColDef[]>([
     valueGetter: 'node.rowIndex + 1',
     width: 100,
     cellStyle: { textAlign: 'center' },
-    pinned: 'left'
+    pinned: 'left' // Закрепляем слева
   },
   {
     headerName: 'наименование',
@@ -70,7 +70,7 @@ const autoGroupColumnDef = ref<ColDef>({
   headerName: 'категория',
   field: 'category',
   minWidth: 250,
-  pinned: null,
+  pinned: null, // Между № п/п и наименованием
   cellRendererParams: {
     suppressCount: true,
     innerRenderer: (params: any) => {
@@ -85,12 +85,9 @@ const getDataPath = (data: any) => {
 
 const onGridReady = (params: GridReadyEvent) => {
   gridApi.value = params.api;
-
   prepareDataForGrid();
   
-  // Переставляем колонки: № п/п, категория, наименование
   setTimeout(() => {
-    params.columnApi?.moveColumn('ag-Grid-AutoColumn', 1);
     params.api.expandAll();
   }, 100);
 };
